@@ -1,39 +1,56 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { InputProps } from "./DateInput"
 import { getCities } from "../../shared/api/serviceApi";
 import DropdownListOfHints from "./DropdownListOfHints";
-import { CitiesProps } from "../../shared/types/types";
+import { CitiesProps, CityProps } from "../../shared/types/types";
+import useDebounce from "../../shared/hooks/useDebounce";
 
 
 const CityInput = ({nameClass}: InputProps) => {
   const [inputValue, setInputValue] = useState('');
-  const abortControllerRef = useRef<AbortController>(new AbortController());
+  const [isActive, setActiveList] = useState(false);
+  // const abortControllerRef = useRef<AbortController>(new AbortController());
   const [listCities, setListCities] = useState<CitiesProps['list']>([]);
 
+  const debounceGetCities = useDebounce(inputValue);
+
   useEffect(() => {
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim()) {
+      setListCities([]);
+      setActiveList(false)
+      return;
+    }
   (async () => {
-    const data = await getCities(inputValue)
+    // const data = await debounceGetCities(inputValue);
+    const data = await getCities(debounceGetCities)
     if (data) {
       const list : CitiesProps['list'] = data;
       setListCities(list);
+      setActiveList(true);
     }
   }
     )()
     
-  }, [inputValue])
+  }, [debounceGetCities])
 
   const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   }
 
+  const handleClick = (el: CityProps) => {
+    if (el) setActiveList(false);
+    setInputValue(el.name);
+  }
+
   return (
     <>
-    <input className={nameClass} type="text" required
-    value={inputValue} onChange={onChangeValue}
+      <input className={nameClass} type="text" required
+        value={inputValue} onChange={onChangeValue}
     />
-    <DropdownListOfHints list={listCities}/>
-  </>
+      <DropdownListOfHints 
+        isActive={isActive}
+        handleClick={handleClick} list={listCities}/>
+    </>
   )
 }
 

@@ -1,4 +1,5 @@
 import './App.css';
+import FormDirection from './components/FormDirection/FormDirection';
 import CityInput from './components/Input/CityInput';
 // import Footer from './components/Footer/Footer';
 import DateInput from './components/Input/DateInput';
@@ -11,13 +12,7 @@ function App() {
 
   return (
     <>
-    {/* <Footer /> */}
-    <CityInput nameClass='1' />
-    <form className='search-form__tickets' >
-      <DateInput nameClass='search-form__input-date-from' />   
-      <DateInput nameClass='search-form__input-date-to' />
-      <button type='submit'>Отправить</button>
-    </form>
+      <FormDirection />
     </>
   )
 }

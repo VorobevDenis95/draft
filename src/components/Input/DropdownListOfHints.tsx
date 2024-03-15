@@ -1,10 +1,22 @@
-import { CitiesProps } from "../../shared/types/types";
+import { CitiesProps, CityProps } from "../../shared/types/types";
 
-const DropdownListOfHints = ({list} : CitiesProps) => {
+interface DropListProps {
+  list: CityProps[],
+  handleClick: (el: CityProps) => void,
+  isActive: boolean
+}
+
+const DropdownListOfHints = ({list, handleClick, isActive} : DropListProps ) => {
   return (
-    list && list.map(el=> (
-       <span key={el.id}>{el.name}</span>
+    isActive && list &&
+      <ul className="list__clue-cities">
+        {
+          list.map((el: CityProps) => (
+         <li onClick={() => handleClick(el)}
+         key={el.id}>{el.name}</li>
      ))
+        }
+        </ul>
     
   )
 }

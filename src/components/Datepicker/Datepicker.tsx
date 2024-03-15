@@ -118,7 +118,7 @@ const DatePicker = ({value, coordinates,  onChange, onClickDate} : DatePickerPro
   
   const CalendarStyles = {
     top: `${coordinates.y + coordinates.height}px`,
-    left: `${coordinates.x - coordinates.width / 2}px`,
+    left: `${coordinates.x}px`,
   }
   
   // const [dateInput, setDateInput] = useState('');

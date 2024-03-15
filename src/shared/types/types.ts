@@ -1,7 +1,9 @@
 
 export interface CitiesProps {
-  list: {
-    id: string,
-    name: string
-  }[]
+  list: CityProps[]
+}
+
+export interface CityProps {
+  id: string,
+  name: string
 }
