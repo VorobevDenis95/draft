@@ -1,18 +1,15 @@
+import { RouterProvider } from "react-router-dom";
 import './App.css';
-import FormDirection from './components/FormDirection/FormDirection';
-import CityInput from './components/Input/CityInput';
-// import Footer from './components/Footer/Footer';
-import DateInput from './components/Input/DateInput';
+import { router } from './shared/router/router';
+
+import React from 'react';
+
 
 function App() {
-  // const [date, setDate] = useState(() => new Date());
-  
-  // search-form-input__city-from
-  // search-form-input__city-to
 
   return (
     <>
-      <FormDirection />
+      <RouterProvider router={router}/>
     </>
   )
 }
